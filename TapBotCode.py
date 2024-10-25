@@ -135,10 +135,10 @@ def callback(call):
         themes_dark_buy = types.InlineKeyboardButton(text="Установлена", callback_data="themes_dark_buy")
     cancel_to_themes = types.InlineKeyboardButton(text="Назад", callback_data="themes")
     if call.data == "button":
-        cursor.execute("UPDATE users SET bot_score = ? WHERE user_id = ?", (bot_score + 1, call.from_user.id))
+        cursor.execute("UPDATE users SET bot_score = ? WHERE user_id = ?", (bot_score + bot_level, call.from_user.id))
         connection.commit()
         markup = types.InlineKeyboardMarkup()
-        profile = types.InlineKeyboardButton(text=f"{bot_score + 1}", callback_data="profile")
+        profile = types.InlineKeyboardButton(text=f"{bot_score + bot_level}", callback_data="profile")
         markup.row(button)
         markup.row(profile, shop)
         bot.edit_message_media(chat_id=call.message.chat.id, message_id=call.message.id, media=types.InputMedia(type="photo", media=open(f"TapBotThemes/{theme_current}/Start.png", "rb"), caption=f"<b>Привет, {call.from_user.first_name}!</b>\nЭто {bot_name}!\n\nНажимай на кнопку\nи зарабатывай очки.\n\nЗачем всё это?\n<i>Кто знает...</i>", parse_mode="HTML"), reply_markup=markup)
@@ -177,6 +177,8 @@ def callback(call):
             connection.commit()
             try:
                 bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+            except:
+                pass
             finally:
                 dice = bot.send_dice(chat_id=call.message.chat.id, message_thread_id=call.message.message_thread_id)
                 message = bot.send_message(chat_id=call.message.chat.id, message_thread_id=call.message.message_thread_id, text=f"Вам выпадает...")
@@ -212,6 +214,8 @@ def callback(call):
             connection.commit()
             try:
                 bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+            except:
+                pass
             finally:
                 casino = bot.send_dice(chat_id=call.message.chat.id, message_thread_id=call.message.message_thread_id, emoji="🎰")
                 message = bot.send_message(chat_id=call.message.chat.id, message_thread_id=call.message.message_thread_id, text=f"Вам выпадает...")
@@ -247,6 +251,8 @@ def callback(call):
             connection.commit()
             try:
                 bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
+            except:
+                pass
             finally:
                 bot.send_photo(chat_id=call.message.chat.id, message_thread_id=call.message.message_thread_id, photo=open(f"TapBotThemes/{theme_current}/LevelUp.png", "rb"), caption=f"Ваш уровень повышен! ({bot_level + 1})")
                 time.sleep(1)
