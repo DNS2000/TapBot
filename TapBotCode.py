@@ -311,6 +311,7 @@ def callback(call):
                 connection.commit()
                 markup = types.InlineKeyboardMarkup()
                 themes_dark_buy = types.InlineKeyboardButton(text="Установлена", callback_data="themes_dark_buy")
+                profile = types.InlineKeyboardButton(text=f"{bot_score - 10000}", callback_data="profile")
                 markup.row(themes_dark_buy)
                 markup.row(profile, cancel_to_themes)
                 bot.edit_message_media(chat_id=call.message.chat.id, message_id=call.message.id, media=types.InputMedia(type="photo", media=open(f"TapBotThemes/Dark/Theme.png", "rb"), caption=f"Тёмная тема.\n\nЦена: 10000 очков."), reply_markup=markup)
