@@ -13,7 +13,7 @@ try:
 except:
     config.add_section("TapBotConfig")
     config.set("TapBotConfig", "bot_token", "bot_token") # Токен бота без кавычек
-    config.set("TapBotConfig", "bot_token", "DNS2000's BOT") # Имя бота без кавычек
+    config.set("TapBotConfig", "bot_token", "diquoks's Bot") # Имя бота без кавычек
     config.set("TapBotConfig", "admin_list", "[]") # ID администраторов бота через запятую
     config.write(open("TapBotConfig.ini", "w"))
 
@@ -159,7 +159,7 @@ def callback(call):
     elif call.data == "profile_bot":
         markup = types.InlineKeyboardMarkup()
         markup.add(profile_bot_update, profile_bot_cancel)
-        bot.edit_message_media(chat_id=call.message.chat.id, message_id=call.message.id, media=types.InputMedia(type="photo", media=open(f"TapBotThemes/{theme_current}/ProfileBot.png", "rb"), caption=f"<b>Информация о {bot_name}:</b>\n\nВсего очков: {total_score}\nВсего игроков: {total_users}\n\nОшибок: {errors}\nЗапущен: {started}\n\nКод бота на GitHub:\nhttps://github.com/DNS2000/TapBot", parse_mode="HTML"), reply_markup=markup)
+        bot.edit_message_media(chat_id=call.message.chat.id, message_id=call.message.id, media=types.InputMedia(type="photo", media=open(f"TapBotThemes/{theme_current}/ProfileBot.png", "rb"), caption=f"<b>Информация о {bot_name}:</b>\n\nВсего очков: {total_score}\nВсего игроков: {total_users}\n\nОшибок: {errors}\nЗапущен: {started}\n\nКод бота на GitHub:\nhttps://github.com/diquoks/TapBot", parse_mode="HTML"), reply_markup=markup)
     elif call.data == "shop":
         markup = types.InlineKeyboardMarkup(row_width=2)
         markup.add(dice, casino, upgrade, themes, profile, shop_cancel)
@@ -321,7 +321,7 @@ def callback(call):
 
 while True:
     try:
-        bot.polling(none_stop=True, timeout=600)
+        bot.infinity_polling(none_stop=True, timeout=10, long_polling_timeout=5)
     except:
         errors += 1
         print(f"\n{str(traceback.format_exc()).replace(str(bot_token), "*bot_token*")}\nВозникла ошибка. ({errors})\n{datetime.now().strftime("%d.%m.%Y %H:%M:%S")}\n")
